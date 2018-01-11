@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>about | Young&#39;s Blog</title>
+  <title>斐波那契数列3种实现方式 | Young&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="�������ӣ�&amp;lt;%= post.title %&amp;gt; ���ߣ�ŷ����� ������http://ouysl.github.io/���Ļ��� ֪ʶ��������-��ͬ��ʽ���� 4.0 �������Э�鷢������ӭת�أ������������ҵĿ�ģ����Ǳ��뱣���ĵ�����ŷ����������ӡ�">
-<meta name="keywords" content="java,IT,程序猿,开发者,mysql,oracle,html5,编程,大数据,人工智能">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+  <meta name="description" content="简介： 斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”。指的是这样一个数列：1、1、2、3、5、8、13、21、34、……在数学上，斐波纳契数列以如下被以递归的方法定义：F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&amp;gt;=2，n∈N*）">
+<meta name="keywords" content="java,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斐波那契数列3种实现方式">
+<meta property="og:url" content="http://yoursite.com/2018/01/10/斐波那契数列3种实现方式/index.html">
 <meta property="og:site_name" content="Young&#39;s Blog">
-<meta property="og:description" content="�������ӣ�&amp;lt;%= post.title %&amp;gt; ���ߣ�ŷ����� ������http://ouysl.github.io/���Ļ��� ֪ʶ��������-��ͬ��ʽ���� 4.0 �������Э�鷢������ӭת�أ������������ҵĿ�ģ����Ǳ��뱣���ĵ�����ŷ����������ӡ�">
+<meta property="og:description" content="简介： 斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”。指的是这样一个数列：1、1、2、3、5、8、13、21、34、……在数学上，斐波纳契数列以如下被以递归的方法定义：F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&amp;gt;=2，n∈N*）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://avatars1.githubusercontent.com/u/168751?v=3&s=140">
-<meta property="og:updated_time" content="2017-11-20T07:20:49.250Z">
+<meta property="og:updated_time" content="2018-01-11T08:26:06.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="�������ӣ�&amp;lt;%= post.title %&amp;gt; ���ߣ�ŷ����� ������http://ouysl.github.io/���Ļ��� ֪ʶ��������-��ͬ��ʽ���� 4.0 �������Э�鷢������ӭת�أ������������ҵĿ�ģ����Ǳ��뱣���ĵ�����ŷ����������ӡ�">
-<meta name="twitter:image" content="https://avatars1.githubusercontent.com/u/168751?v=3&s=140">
+<meta name="twitter:title" content="斐波那契数列3种实现方式">
+<meta name="twitter:description" content="简介： 斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”。指的是这样一个数列：1、1、2、3、5、8、13、21、34、……在数学上，斐波纳契数列以如下被以递归的方法定义：F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&amp;gt;=2，n∈N*）">
   
     <link rel="alternative" href="/atom.xml" title="Young&#39;s Blog" type="application/atom+xml">
   
@@ -163,30 +161,135 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-斐波那契数列3种实现方式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      about
+      斐波那契数列3种实现方式
     </h1>
   
 
         
-        <a href="/about/index.html" class="archive-article-date">
-  	<time datetime="2017-11-20T07:19:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-20</time>
+        <a href="/2018/01/10/斐波那契数列3种实现方式/" class="archive-article-date">
+  	<time datetime="2018-01-10T08:22:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+	<div id="toc-article" class="toc-article">
+	    <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+		<strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介："><span class="toc-number">1.</span> <span class="toc-text">简介：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-递归算法："><span class="toc-number">1.</span> <span class="toc-text">1.递归算法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-备忘录算法-递归算法"><span class="toc-number">2.</span> <span class="toc-text">2.备忘录算法+递归算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态规划"><span class="toc-number">3.</span> <span class="toc-text">3.动态规划</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+	function showToc(){
+		var toc_article = document.getElementById("toc-article");
+		var show_toc_btn = document.getElementById("show-toc-btn");
+		toc_article.setAttribute("style","display:block");
+		show_toc_btn.setAttribute("style","display:none");
+		};
+	function showBtn(){
+		var toc_article = document.getElementById("toc-article");
+		var show_toc_btn = document.getElementById("show-toc-btn");
+		toc_article.setAttribute("style","display:none");
+		show_toc_btn.setAttribute("style","display:block");
+		};
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid"><br><div style="MARGIN-TOP: 10px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px"><br><img alt="" src="https://avatars1.githubusercontent.com/u/168751?v=3&s=140" width="90" height="100"><br></div><br><div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000"><br>�������ӣ�<a href="<%= post.link %>">&lt;%= post.title %&gt;</a> <br><br>���ߣ�<br><a href="http://ouysl.github.io/" target="_blank" rel="external">ŷ�����</a> <br>������<br><a href="http://ouysl.github.io/" target="_blank" rel="external">http://ouysl.github.io/</a><br><br>���Ļ���<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> ֪ʶ��������-��ͬ��ʽ���� 4.0 </a><br>�������Э�鷢������ӭת�أ������������ҵĿ�ģ����Ǳ��뱣���ĵ�����<br><a href="http://ouysl.github.io/" target="_blank" rel="external">ŷ�����</a>�����ӡ�<br></div><br></div>
+        <script src="\assets\js\APlayer.min.js"> </script><h3 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h3><p> 斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”。<br>指的是这样一个数列：1、1、2、3、5、8、13、21、34、……<br>在数学上，斐波纳契数列以如下被以递归的方法定义：F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&gt;=2，n∈N*）</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面简单介绍下实现num以内的斐波那契数列3种方式：</p>
+<hr>
+<h3 id="1-递归算法："><a href="#1-递归算法：" class="headerlink" title="1.递归算法："></a>1.递归算法：</h3><pre><code>public  static void findAll(int num){
+    List&lt;Integer&gt; nums = new ArrayList&lt;Integer&gt;();
+    for(int i=1;i&lt;=num;i++){
+        if(F(i)&gt;num) break;
+        nums.add(F(i));
+    }
+    System.out.println(nums);
+
+}
+//递归查询
+public static int F(int i){
+    if(i ==1){
+        return 1;
+    }
+    if(i==2){
+        return 1;
+    }
+    if(i&gt;=3){
+    return F(i-1)+F(i-2);
+    }
+    return -1;
+}
+</code></pre><hr>
+<h3 id="2-备忘录算法-递归算法"><a href="#2-备忘录算法-递归算法" class="headerlink" title="2.备忘录算法+递归算法"></a>2.备忘录算法+递归算法</h3><pre><code>public  static void findAll(int num){
+    List&lt;Integer&gt; nums = new ArrayList&lt;Integer&gt;();
+    Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();
+    for(int i=1;i&lt;=num;i++){
+        if(F(i,map)&gt;num) break;
+        nums.add(F(i,map));
+    }
+    System.out.println(nums);
+    }
+//递归查询,添加备忘录，避免重复查询F(i)
+public static int F(int i,Map&lt;Integer,Integer&gt; map){
+    if(i&lt;1){
+        return -1;
+    }
+    if(i ==1){
+        return 1;
+    }
+    if(i==2){
+        return 1;
+    }
+    if(map.containsKey(i)){
+        return map.get(i);
+    }else{
+        int value = F(i-1,map) +F(i-2,map);
+        map.put(i, value);
+        return value;
+    }
+
+}
+</code></pre><hr>
+<h3 id="3-动态规划"><a href="#3-动态规划" class="headerlink" title="3.动态规划"></a>3.动态规划</h3><pre><code>public  static void findAll(int num){
+    List&lt;Integer&gt; nums = new ArrayList&lt;Integer&gt;();
+    if(num==1){
+        System.out.println(&quot;[&quot;+num+&quot;]&quot;);
+    }
+    if(num==2){
+        System.out.println(&quot;[1,1]&quot;);
+    }
+    if(num&gt;=3){
+        int a =1 ,b =1;
+        nums.add(a);
+        nums.add(b);
+        for(int i=3;i&lt;=num;i++){
+            int next = a+b;
+            a=b;
+            b=next;
+            if(next&gt;=num){
+                break;
+            }
+        nums.add(next);
+        }
+        System.out.println(nums);
+    }
+}
+</code></pre><p>以上三种方式，效率依次递增。建议使用第三种方式。</p>
+
       
 
       
@@ -225,6 +328,21 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -275,7 +393,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/about/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/01/10/斐波那契数列3种实现方式/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -287,6 +405,16 @@ var _hmt = _hmt || [];
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/09/帆软报表大屏制作/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">帆软报表大屏制作</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -300,6 +428,19 @@ var _hmt = _hmt || [];
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介："><span class="toc-number">1.</span> <span class="toc-text">简介：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-递归算法："><span class="toc-number">1.</span> <span class="toc-text">1.递归算法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-备忘录算法-递归算法"><span class="toc-number">2.</span> <span class="toc-text">2.备忘录算法+递归算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态规划"><span class="toc-number">3.</span> <span class="toc-text">3.动态规划</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -320,7 +461,7 @@ var _hmt = _hmt || [];
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://yoursite.com/about/index.html",
+  id: "http://yoursite.com/2018/01/10/斐波那契数列3种实现方式/",
   owner: 'ouysl',
   repo: 'ouysl.github.io',
   oauth: {
@@ -354,7 +495,7 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

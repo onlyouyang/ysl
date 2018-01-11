@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Young&#39;s Blog</title>
   
-  <subtitle>曾梦想仗剑走天涯  不料却湿身撸代码</subtitle>
+  <subtitle>曾梦想仗剑走天涯 不料却湿身撸代码</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-20T07:48:06.039Z</updated>
+  <updated>2018-01-11T08:26:06.056Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,23 +17,122 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2017/11/02/hello-world/"/>
-    <id>http://yoursite.com/2017/11/02/hello-world/</id>
-    <published>2017-11-02T11:31:22.666Z</published>
-    <updated>2017-11-20T07:48:06.039Z</updated>
+    <title>斐波那契数列3种实现方式</title>
+    <link href="http://yoursite.com/2018/01/10/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%973%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/01/10/斐波那契数列3种实现方式/</id>
+    <published>2018-01-10T08:22:14.000Z</published>
+    <updated>2018-01-11T08:26:06.056Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><h3 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h3><p> 斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”。<br>指的是这样一个数列：1、1、2、3、5、8、13、21、34、……<br>在数学上，斐波纳契数列以如下被以递归的方法定义：F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&gt;=2，n∈N*）</p><h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>下面简单介绍下实现num以内的斐波那契数列3种方式：</p><hr><h3 id="1-递归算法："><a href="#1-递归算法：" class="headerlink" title="1.递归算法："></a>1.递归算法：</h3><pre><code>public  static void findAll(int num){    List&lt;Integer&gt; nums = new ArrayList&lt;Integer&gt;();    for(int i=1;i&lt;=num;i++){        if(F(i)&gt;num) break;        nums.add(F(i));    }    System.out.println(nums);}//递归查询public static int F(int i){    if(i ==1){        return 1;    }    if(i==2){        return 1;    }    if(i&gt;=3){    return F(i-1)+F(i-2);    }    return -1;}</code></pre><hr><h3 id="2-备忘录算法-递归算法"><a href="#2-备忘录算法-递归算法" class="headerlink" title="2.备忘录算法+递归算法"></a>2.备忘录算法+递归算法</h3><pre><code>public  static void findAll(int num){    List&lt;Integer&gt; nums = new ArrayList&lt;Integer&gt;();    Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();    for(int i=1;i&lt;=num;i++){        if(F(i,map)&gt;num) break;        nums.add(F(i,map));    }    System.out.println(nums);    }//递归查询,添加备忘录，避免重复查询F(i)public static int F(int i,Map&lt;Integer,Integer&gt; map){    if(i&lt;1){        return -1;    }    if(i ==1){        return 1;    }    if(i==2){        return 1;    }    if(map.containsKey(i)){        return map.get(i);    }else{        int value = F(i-1,map) +F(i-2,map);        map.put(i, value);        return value;    }}</code></pre><hr><h3 id="3-动态规划"><a href="#3-动态规划" class="headerlink" title="3.动态规划"></a>3.动态规划</h3><pre><code>public  static void findAll(int num){    List&lt;Integer&gt; nums = new ArrayList&lt;Integer&gt;();    if(num==1){        System.out.println(&quot;[&quot;+num+&quot;]&quot;);    }    if(num==2){        System.out.println(&quot;[1,1]&quot;);    }    if(num&gt;=3){        int a =1 ,b =1;        nums.add(a);        nums.add(b);        for(int i=3;i&lt;=num;i++){            int next = a+b;            a=b;            b=next;            if(next&gt;=num){                break;            }        nums.add(next);        }        System.out.println(nums);    }}</code></pre><p>以上三种方式，效率依次递增。建议使用第三种方式。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;简介：&quot;&gt;&lt;a href=&quot;#简介：&quot; class=&quot;headerlink&quot; title=&quot;简介：&quot;&gt;&lt;/a&gt;简介：&lt;/h3&gt;&lt;p&gt; 斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”。&lt;br&gt;指的是这样一个数列：1、1、2、3、5、8、13、21、34、……&lt;br&gt;在数学上，斐波纳契数列以如下被以递归的方法定义：F(0)=0，F(1)=1, F(n)=F(n-1)+F(n-2)（n&amp;gt;=2，n∈N*）&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>帆软报表大屏制作</title>
+    <link href="http://yoursite.com/2017/10/09/%E5%B8%86%E8%BD%AF%E6%8A%A5%E8%A1%A8%E5%A4%A7%E5%B1%8F%E5%88%B6%E4%BD%9C/"/>
+    <id>http://yoursite.com/2017/10/09/帆软报表大屏制作/</id>
+    <published>2017-10-09T08:25:14.000Z</published>
+    <updated>2018-01-10T09:04:36.551Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="工具："><a href="#工具：" class="headerlink" title="工具："></a>工具：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.finereport8.0</div><div class="line">2.java</div><div class="line">3.mysql</div></pre></td></tr></table></figure><a id="more"></a><h3 id="帆软报表简介"><a href="#帆软报表简介" class="headerlink" title="帆软报表简介"></a>帆软报表简介</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FineReport是集数据展示（报表）和数据录入(表单)功能于一身，能够制作复杂的报表，操作简单易用。针对软件开发商和系统集成商，用于快速构建企业信息系统的中国式Web报表软件。</div></pre></td></tr></table></figure><h3 id="帆软报表优势"><a href="#帆软报表优势" class="headerlink" title="帆软报表优势"></a>帆软报表优势</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 使用FineReport可以快速灵活地制作报表，搭建统一的数据决策和管理平台，让更多的数据用于业务经营和决策。</div><div class="line">2. 使用FineReport可以快速开发报表，无缝集成到各类系统中，加快项目进度的同时，也能保证报表系统的拓展性和可维护性。</div></pre></td></tr></table></figure><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/img/fr.png" alt="image"></p><p><img src="/img/fr2.png" alt="image"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">本人已成为帆软报表认证工程师，后续将陆续推出帆软报表相关知识。</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;工具：&quot;&gt;&lt;a href=&quot;#工具：&quot; class=&quot;headerlink&quot; title=&quot;工具：&quot;&gt;&lt;/a&gt;工具：&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1.finereport8.0&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2.java&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3.mysql&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="帆软报表" scheme="http://yoursite.com/tags/%E5%B8%86%E8%BD%AF%E6%8A%A5%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java模拟电子表，打印火柴类型时间</title>
+    <link href="http://yoursite.com/2017/01/15/java%E6%A8%A1%E6%8B%9F%E7%94%B5%E5%AD%90%E8%A1%A8%EF%BC%8C%E6%89%93%E5%8D%B0%E7%81%AB%E6%9F%B4%E7%B1%BB%E5%9E%8B%E6%97%B6%E9%97%B4/"/>
+    <id>http://yoursite.com/2017/01/15/java模拟电子表，打印火柴类型时间/</id>
+    <published>2017-01-15T08:44:14.000Z</published>
+    <updated>2018-01-11T08:25:45.012Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><h3 id="直接上代码！就是这么刚！"><a href="#直接上代码！就是这么刚！" class="headerlink" title="直接上代码！就是这么刚！"></a>直接上代码！就是这么刚！</h3><a id="more"></a><pre><code>public static void main(String[] args) {   //通过Timer()实现定时1秒任务   // Timer timer = new Timer();    // timer.schedule(new TimerTask() {    // @Override    // public void run() {    // Calendar calendar = Calendar.getInstance();    // Date date = calendar.getTime();    // printTime(date);    // }    // },1000,1000);//线程sleep(1000)控制时间，实现定时new Thread(new Runnable() {    @Override    public void run() {        while(true){            Calendar calendar = Calendar.getInstance();            Date date = calendar.getTime();            printTime(date);            try {                Thread.sleep(1000);            } catch (InterruptedException e) {                e.printStackTrace();            }        }    }}).start();}//打印时间方法public static void printTime(Date date){        SimpleDateFormat sdf = new SimpleDateFormat(&quot;HH:mm:ss&quot;);    String time = sdf.format(date);    System.out.println(time);//inputIntList存放每个数字代表的轨迹组合int[]    List&lt;int[]&gt; inputIntList = new LinkedList&lt;int[]&gt;();    for(int i=0;i&lt;time.length();i++){    String a =String.valueOf(time.charAt(i));    //将数字转化为相应的轨迹组合int[]，并加到inputIntList中    if(!a.equals(&quot;:&quot;)){        inputIntList.add(matchNumberGenerator(a));      }}//遍历inputIntList，打印数字    Iterator&lt;int[]&gt; iterator = null;//5行，3列打印    for(int i = 0; i &lt; 5; i++){    iterator = inputIntList.iterator();    while(iterator.hasNext()){        printNumber(iterator.next(),i*3,(i+1)*3;    }    System.out.println();    }   }</code></pre><!--more--><pre><code>//将数字转化为相应的轨迹组合int[]public static int[] matchNumberGenerator(String a){int result[] = null;switch(a){//&quot;_&quot;--&gt;2 &quot; &quot;--&gt;0 &quot;|&quot;--&gt;1case &quot;0&quot;:    result = new int[]{0,2,0,1,0,1,1,0,1,1,0,1,1,2,1};    //&quot;&apos; _ &apos;| |&apos;| |&apos;| |&apos;|_|&quot;.split(&quot;,&quot;);    break;case &quot;1&quot;:    result = new int[]{0,0,0,0,0,1,0,0,1,0,0,1,0,0,1};    //&quot;&apos;   &apos;  |&apos;  |&apos;  |&apos;  |&quot;.split(&quot;,&quot;);    break;case &quot;2&quot;:    result = new int[]{0,2,0,0,0,1,0,2,1,1,0,0,1,2,0};    //&quot;&apos; _ &apos;  |&apos; _|&apos;|  &apos;|_ &quot;.split(&quot;,&quot;);    break;case &quot;3&quot;:    result = new int[]{0,2,0,0,0,1,0,2,1,0,0,1,0,2,1};    //&quot;&apos; _ &apos;  |&apos; _|&apos;  |&apos; _|&quot;.split(&quot;,&quot;);    break;case &quot;4&quot;:    result = new int[]{0,0,0,1,0,1,1,2,1,0,0,1,0,0,1};    //&quot;&apos;   &apos;| |&apos;|_|&apos;  |&apos;  |&quot;.split(&quot;,&quot;);    break;case &quot;5&quot;:    result = new int[]{0,2,0,1,0,0,1,2,0,0,0,1,0,2,1};    //&quot;&apos; _ &apos;|  &apos;|_ &apos;  |&apos; _|&quot;.split(&quot;,&quot;);    break;case &quot;6&quot;:    result = new int[]{0,2,0,1,0,0,1,2,0,1,0,1,1,2,1};    //&quot;&apos; _ &apos;|  &apos;|_ &apos;| |&apos;|_|&quot;.split(&quot;,&quot;);    break;case &quot;7&quot;:    result = new int[]{0,2,0,0,0,1,0,0,1,0,0,1,0,0,1};    //&quot;&apos; _ &apos;  |&apos;  |&apos;  |&apos;  |&quot;.split(&quot;,&quot;);    break;case &quot;8&quot;:    result = new int[]{0,2,0,1,0,1,1,2,1,1,0,1,1,2,1};    //&quot;&apos; _ &apos;| |&apos;|_|&apos;| |&apos;|_|&quot;.split(&quot;,&quot;);    break;case &quot;9&quot;:    result = new int[]{0,2,0,1,0,1,1,2,1,0,0,1,0,2,1};    //&quot;&apos; _ &apos;| |&apos;|_|&apos;  |&apos; _|&quot;.split(&quot;,&quot;);    break;}return result;}</code></pre><!--more--><pre><code> //根据轨迹组合，打印相应数字public static void printNumber(int[] numberArray, int arrayIndex, int arrayIndexEnd){for(int i = arrayIndex; i &lt; arrayIndexEnd;i++){    switch(numberArray[i]){    //     &quot;_&quot;--&gt;2     &quot; &quot;--&gt;0      &quot;|&quot;--&gt;1    case 0:        System.out.print(&quot; &quot;);        break;    case 1:        System.out.print(&quot;|&quot;);        break;    case 2:        System.out.print(&quot;_&quot;);        break;    }}System.out.print(&quot; &quot;); }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;直接上代码！就是这么刚！&quot;&gt;&lt;a href=&quot;#直接上代码！就是这么刚！&quot; class=&quot;headerlink&quot; title=&quot;直接上代码！就是这么刚！&quot;&gt;&lt;/a&gt;直接上代码！就是这么刚！&lt;/h3&gt;
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>雪花</title>
+    <link href="http://yoursite.com/2016/12/02/%E9%9B%AA%E8%8A%B1/"/>
+    <id>http://yoursite.com/2016/12/02/雪花/</id>
+    <published>2016-12-02T11:30:40.000Z</published>
+    <updated>2018-01-11T08:16:03.180Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><a id="more"></a><p>愿化为一朵雪花</p><p>在天空盘旋，盘旋</p><p>我没了方向</p><p>依然在那棵掉了叶的老树旁</p><p>等你</p><p>我可爱的姑娘</p><p>没错</p><p>你是在眺望</p><p>可那清澈的眼眸没有我的方向</p><p>飘过你的长发</p><p>让我再闻一闻你的芬芳</p><p>幻想沾住你的衣裳</p><p>永远永远消溶在那温柔的心扉</p><p>可我只能在你身边护航</p><p>等到那温暖太阳的出现</p><p>于是</p><p>断了我的宿命</p><p>淡了你的温柔</p><p>我在笑</p><p>我在溶化</p><p>默默的陪着你到我生命的尽头</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+        &lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;愿化为一朵雪花&lt;/p&gt;
+&lt;p&gt;在天空盘旋，盘旋&lt;/p&gt;
+&lt;p&gt;我没了方向&lt;/p&gt;
+&lt;p&gt;依然在那棵掉了叶的老树旁&lt;/p&gt;
+&lt;p&gt;等你&lt;/p
       
     
     </summary>
     
+    
+      <category term="诗和远方" scheme="http://yoursite.com/tags/%E8%AF%97%E5%92%8C%E8%BF%9C%E6%96%B9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>青春</title>
+    <link href="http://yoursite.com/2016/08/03/%E9%9D%92%E6%98%A5/"/>
+    <id>http://yoursite.com/2016/08/03/青春/</id>
+    <published>2016-08-03T12:12:11.000Z</published>
+    <updated>2018-01-11T08:15:54.584Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><a id="more"></a><p>看不清</p><p>路的尽头</p><p>是围巾拉扯着行李箱</p><p>月光抛给我一个眼神</p><p>焖熟了的思念</p><p>也合着脚印</p><p>拼了命的奔跑</p><p>去拥抱</p><p>慢慢模糊的脸庞</p><p>骤来的雨</p><p>触碰了玻璃的心房</p><p>也打翻了发香</p><p>里面有湿润的眼眶</p><p>和跳舞的衣裳</p><p>我不允许</p><p>它褪去颜色 </p><p>路在尽头</p><p>依偎着暗黄的灯光</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;看不清&lt;/p&gt;
+&lt;p&gt;路的尽头&lt;/p&gt;
+&lt;p&gt;是围巾拉扯着行李箱&lt;/p&gt;
+&lt;p&gt;月光抛给我一个眼神&lt;/p&gt;
+&lt;p&gt;焖熟了的思念&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="诗和远方" scheme="http://yoursite.com/tags/%E8%AF%97%E5%92%8C%E8%BF%9C%E6%96%B9/"/>
     
   </entry>
   
