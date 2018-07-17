@@ -320,6 +320,165 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-redis安装与配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/11/redis安装与配置/">redis安装与配置</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/11/redis安装与配置/" class="archive-article-date">
+  	<time datetime="2018-05-11T14:13:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><p>下载地址：<a href="http://redis.io/download" target="_blank" rel="external">http://redis.io/download</a></p>
+<p>或者使用命定下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://download.redis.io/releases/redis-4.0.10.tar.gz</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2018/05/11/redis安装与配置/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/11/redis安装与配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js判断文件格式及文件大小" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/22/js判断文件格式及文件大小/">js判断文件格式及文件大小</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/22/js判断文件格式及文件大小/" class="archive-article-date">
+  	<time datetime="2018-04-22T15:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script src="\assets\js\APlayer.min.js"> </script><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">function fileChange(target)&#123; </div><div class="line">	var isIE = /msie/i.test(navigator.userAgent) &amp;&amp; !window.opera; //判断是否为ie浏览器</div><div class="line">	var fileSize = 0; //文件大小</div><div class="line">	var filetypes =[&quot;.sh&quot;,&quot;.sql&quot;,&quot;.rar&quot;,&quot;.txt&quot;,&quot;.zip&quot;,&quot;.doc&quot;,&quot;.ppt&quot;,&quot;.xls&quot;,&quot;.pdf&quot;,&quot;.docx&quot;,&quot;.xlsx&quot;,&quot;.jpg&quot;,&quot;.png&quot;]; //定义文件格式</div><div class="line">	var filepath = target.value; </div><div class="line">	var filemaxsize = 1024*2;//2M </div><div class="line"></div><div class="line">	if(filepath)&#123; </div><div class="line">		var isnext = false; </div><div class="line">		var fileend = filepath.substring(filepath.indexOf(&quot;.&quot;)); </div><div class="line">		if(filetypes &amp;&amp; filetypes.length&gt;0)&#123; </div><div class="line">			for(var i =0; i&lt;filetypes.length;i++)&#123; </div><div class="line">				if(filetypes[i]==fileend)&#123; </div><div class="line">				isnext = true; </div><div class="line">				break; </div><div class="line">				&#125; </div><div class="line">			&#125; </div><div class="line">		&#125; </div><div class="line">			if(!isnext)&#123; </div><div class="line">				alert(&quot;不接受此文件类型&quot;); </div><div class="line">				target.value =&quot;&quot;; </div><div class="line">				return false; </div><div class="line">			&#125; </div><div class="line">	&#125;else&#123; </div><div class="line">		return false; </div><div class="line">	&#125; </div><div class="line"></div><div class="line"></div><div class="line">	if (isIE &amp;&amp; !target.files) &#123; </div><div class="line">		var filePath = target.value; </div><div class="line">		var fileSystem = new ActiveXObject(&quot;Scripting.FileSystemObject&quot;); </div><div class="line">		if(!fileSystem.FileExists(filePath))&#123; </div><div class="line">			alert(&quot;附件不存在，请重新输入！&quot;); </div><div class="line">			return false; </div><div class="line">		&#125; </div><div class="line">		var file = fileSystem.GetFile (filePath); </div><div class="line">		fileSize = file.Size; </div><div class="line">	&#125; else &#123; </div><div class="line">		fileSize = target.files[0].size; </div><div class="line">	&#125; </div><div class="line"></div><div class="line">	var size = fileSize / 1024; </div><div class="line">	if(size&gt;filemaxsize)&#123; </div><div class="line">		alert(&quot;附件大小不能大于&quot;+filemaxsize/1024+&quot;M！&quot;); </div><div class="line">		target.value =&quot;&quot;; </div><div class="line">		return false; </div><div class="line">	&#125; </div><div class="line">	if(size&lt;=0)&#123; </div><div class="line">		alert(&quot;附件大小不能为0M！&quot;); </div><div class="line">		target.value =&quot;&quot;; </div><div class="line">		return false; </div><div class="line">	&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/22/js判断文件格式及文件大小/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-shell脚本调用jar包打印乘法表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -647,175 +806,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-点击查询按钮，留在当前tab页" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/02/点击查询按钮，留在当前tab页/">点击查询按钮，留在当前tab页</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/02/点击查询按钮，留在当前tab页/" class="archive-article-date">
-  	<time datetime="2017-08-02T15:12:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-02</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script src="\assets\js\APlayer.min.js"> </script><a id="more"></a>
-<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>当frm有几个tab页，每次点击查询按钮，都会自动返回至第一个tab页。点击完查询按钮，留在当前tab页，改善报表体验。</p>
-<h3 id="具体js"><a href="#具体js" class="headerlink" title="具体js"></a>具体js</h3><p>1.首先在tabpane0添加tab切换事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line">        window.CardIndex=_g().getWidgetByName(&quot;tabpane0&quot;).getShowIndex();//记录当前的tab页索引</div><div class="line">&#125;,10);</div></pre></td></tr></table></figure>
-<p>2.在tabpane0设置初始化事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var aa = window.CardIndex;</div><div class="line">setTimeout(function()&#123;</div><div class="line">        _g().getWidgetByName(&quot;tabpane0&quot;).showCardByIndex(aa);</div><div class="line">        &#125;,2500);</div></pre></td></tr></table></figure>
-<p>由于帆软默认是加载后返回第一个tab页，因加载数据，刷新页面时间影响，有可能返回当前tab时，可能看不到页面，再次切换回来才能看的到。<br>这时候就需要调整返回当前tab的时间，如上2500毫秒，可自行实验测试。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">帆软报表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/02/点击查询按钮，留在当前tab页/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux系统配置jdk环境变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/05/linux系统配置jdk环境变量/">linux系统配置jdk环境变量</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/05/linux系统配置jdk环境变量/" class="archive-article-date">
-  	<time datetime="2017-05-05T08:34:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-05</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-编辑好环境变量"><a href="#1-编辑好环境变量" class="headerlink" title="1.编辑好环境变量"></a>1.编辑好环境变量</h3><hr>
-        
-          <a class="article-more-a" href="/2017/05/05/linux系统配置jdk环境变量/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/05/linux系统配置jdk环境变量/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -928,6 +921,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">诗和远方</a>
               </li>
              
@@ -936,7 +937,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color3">js</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -944,11 +945,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">js</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
             
             <div class="clearfix"></div>
