@@ -424,9 +424,10 @@ var _hmt = _hmt || [];
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <script src="\assets\js\APlayer.min.js"> </script><a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">function fileChange(target)&#123; </div><div class="line">	var isIE = /msie/i.test(navigator.userAgent) &amp;&amp; !window.opera; //判断是否为ie浏览器</div><div class="line">	var fileSize = 0; //文件大小</div><div class="line">	var filetypes =[&quot;.sh&quot;,&quot;.sql&quot;,&quot;.rar&quot;,&quot;.txt&quot;,&quot;.zip&quot;,&quot;.doc&quot;,&quot;.ppt&quot;,&quot;.xls&quot;,&quot;.pdf&quot;,&quot;.docx&quot;,&quot;.xlsx&quot;,&quot;.jpg&quot;,&quot;.png&quot;]; //定义文件格式</div><div class="line">	var filepath = target.value; </div><div class="line">	var filemaxsize = 1024*2;//2M </div><div class="line"></div><div class="line">	if(filepath)&#123; </div><div class="line">		var isnext = false; </div><div class="line">		var fileend = filepath.substring(filepath.indexOf(&quot;.&quot;)); </div><div class="line">		if(filetypes &amp;&amp; filetypes.length&gt;0)&#123; </div><div class="line">			for(var i =0; i&lt;filetypes.length;i++)&#123; </div><div class="line">				if(filetypes[i]==fileend)&#123; </div><div class="line">				isnext = true; </div><div class="line">				break; </div><div class="line">				&#125; </div><div class="line">			&#125; </div><div class="line">		&#125; </div><div class="line">			if(!isnext)&#123; </div><div class="line">				alert(&quot;不接受此文件类型&quot;); </div><div class="line">				target.value =&quot;&quot;; </div><div class="line">				return false; </div><div class="line">			&#125; </div><div class="line">	&#125;else&#123; </div><div class="line">		return false; </div><div class="line">	&#125; </div><div class="line"></div><div class="line"></div><div class="line">	if (isIE &amp;&amp; !target.files) &#123; </div><div class="line">		var filePath = target.value; </div><div class="line">		var fileSystem = new ActiveXObject(&quot;Scripting.FileSystemObject&quot;); </div><div class="line">		if(!fileSystem.FileExists(filePath))&#123; </div><div class="line">			alert(&quot;附件不存在，请重新输入！&quot;); </div><div class="line">			return false; </div><div class="line">		&#125; </div><div class="line">		var file = fileSystem.GetFile (filePath); </div><div class="line">		fileSize = file.Size; </div><div class="line">	&#125; else &#123; </div><div class="line">		fileSize = target.files[0].size; </div><div class="line">	&#125; </div><div class="line"></div><div class="line">	var size = fileSize / 1024; </div><div class="line">	if(size&gt;filemaxsize)&#123; </div><div class="line">		alert(&quot;附件大小不能大于&quot;+filemaxsize/1024+&quot;M！&quot;); </div><div class="line">		target.value =&quot;&quot;; </div><div class="line">		return false; </div><div class="line">	&#125; </div><div class="line">	if(size&lt;=0)&#123; </div><div class="line">		alert(&quot;附件大小不能为0M！&quot;); </div><div class="line">		target.value =&quot;&quot;; </div><div class="line">		return false; </div><div class="line">	&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
+        <h6 id="见代码！"><a href="#见代码！" class="headerlink" title="见代码！"></a>见代码！</h6>
+        
+          <a class="article-more-a" href="/2018/04/22/js判断文件格式及文件大小/#more">more >></a>
+        
       
 
       
@@ -917,15 +918,19 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">js</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -942,10 +947,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>
