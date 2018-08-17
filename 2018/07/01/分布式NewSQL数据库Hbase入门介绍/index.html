@@ -6,19 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2015/3 | Young&#39;s Blog</title>
+  <title>分布式NewSQL数据库Hbase入门介绍 | Young&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术才是硬道理">
-<meta name="keywords" content="java,IT,程序猿,开发者,mysql,oracle,html5,编程,大数据,人工智能">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Young&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2015/03/index.html">
+  <meta name="description" content="1.概念 高可靠、高性能、可伸缩、实时读写、面向列的分布式NewSQL数据库  HBase是Hadoop Database，Google Bigtable的开源实现">
+<meta name="keywords" content="hbase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式NewSQL数据库Hbase入门介绍">
+<meta property="og:url" content="http://yoursite.com/2018/07/01/分布式NewSQL数据库Hbase入门介绍/index.html">
 <meta property="og:site_name" content="Young&#39;s Blog">
-<meta property="og:description" content="技术才是硬道理">
+<meta property="og:description" content="1.概念 高可靠、高性能、可伸缩、实时读写、面向列的分布式NewSQL数据库  HBase是Hadoop Database，Google Bigtable的开源实现">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/hbase1.png">
+<meta property="og:image" content="http://yoursite.com/img/hbase3.png">
+<meta property="og:image" content="http://yoursite.com/img/hbase4.png">
+<meta property="og:image" content="http://yoursite.com/img/hbase5.png">
+<meta property="og:image" content="http://yoursite.com/img/hbase6.png">
+<meta property="og:image" content="http://yoursite.com/img/hbase7.png">
+<meta property="og:updated_time" content="2018-08-17T02:41:00.579Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Young&#39;s Blog">
-<meta name="twitter:description" content="技术才是硬道理">
+<meta name="twitter:title" content="分布式NewSQL数据库Hbase入门介绍">
+<meta name="twitter:description" content="1.概念 高可靠、高性能、可伸缩、实时读写、面向列的分布式NewSQL数据库  HBase是Hadoop Database，Google Bigtable的开源实现">
+<meta name="twitter:image" content="http://yoursite.com/img/hbase1.png">
   
     <link rel="alternative" href="/atom.xml" title="Young&#39;s Blog" type="application/atom+xml">
   
@@ -160,60 +168,474 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-分布式NewSQL数据库Hbase入门介绍" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/03/05/时间/" class="archive-article-date">
-  	<time datetime="2015-03-05T02:11:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-03-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/05/时间/">时间</a>
+    <h1 class="article-title" itemprop="name">
+      分布式NewSQL数据库Hbase入门介绍
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/01/分布式NewSQL数据库Hbase入门介绍/" class="archive-article-date">
+  	<time datetime="2018-07-01T14:30:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-01</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><ul>
+<li><p>高可靠、高性能、可伸缩、实时读写、面向列的分布式NewSQL数据库</p>
+</li>
+<li><p>HBase是Hadoop Database，Google Bigtable的开源实现</p>
+<a id="more"></a></li>
+<li><p>NewSQL数据库</p>
+<p>  –既具有NoSQL数据库的海量数据存储管理能力，又继承了关系数据库的SQL特性</p>
+</li>
+<li><p>列式存储</p>
+<p>  –按列族存储，对Schema限制很少，可以自由添加列</p>
+<p>  –适合存储海量的半结构化数据</p>
+</li>
+<li><p>Key-Value数据库</p>
+<p>  –按Key的字典序顺序存储</p>
+<p>  –主要通过Key实现数据的增删改查，以及扫库操作</p>
+</li>
+<li><p>采用HDFS为文件存储系统</p>
+</li>
+</ul>
+<hr>
+<!--more-->
+<h3 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h3><ul>
+<li><p>海量数据存储</p>
+<p>  –主要存储半结构化、非结构化的稀疏数据</p>
+<p>  –PB以上数据规模</p>
+</li>
+<li><p>线性扩展</p>
+<p>  –容量和处理能力随节点数量线性增长</p>
+</li>
+<li><p>高并发</p>
+</li>
+<li><p>高可用</p>
+</li>
+<li><p>数据实时随机读写</p>
+</li>
+<li><p>数据强一致性</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-适用场景"><a href="#3-适用场景" class="headerlink" title="3.适用场景"></a>3.适用场景</h3><ul>
+<li><p>并发查询</p>
+<p>  –海量数据</p>
+<p>  –高并发</p>
+<p>  –简单条件查询</p>
+</li>
+<li><p>半结构化和非结构化数据存储</p>
+<p>  –10k~10M的半结构化和非结构化数据</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-数据模型"><a href="#4-数据模型" class="headerlink" title="4.数据模型"></a>4.数据模型</h3><h6 id="4-1-表结构"><a href="#4-1-表结构" class="headerlink" title="4.1 表结构"></a>4.1 表结构</h6><ul>
+<li>四维表：RowKey | 列族 | 列限定符 | 时间戳；</li>
+</ul>
+<p><img src="/img/hbase1.png" alt="image"></p>
+<h6 id="4-2-基本概念介绍"><a href="#4-2-基本概念介绍" class="headerlink" title="4.2 基本概念介绍"></a>4.2 基本概念介绍</h6><ul>
+<li><p>命名空间（Namespace）</p>
+<p>  –命名空间是对表的逻辑分组，类似于关系数据库中的Database</p>
+<p>  –利用命名空间，在多租户场景下可做到更好的资源和数据隔离</p>
+</li>
+<li><p>表（Table）</p>
+<p>  –以“表”为单位组织数据</p>
+<p>  –表由多行组成</p>
+</li>
+<li><p>行（Row）</p>
+<p>  –表以“行”为单位组织数据</p>
+<p>  –行由一个RowKey和多个列族组成</p>
+</li>
+<li><p>RowKey </p>
+<p>  –行的主键，用于唯一地标识和定位行</p>
+<p>  –各行按RowKey的字典序排列</p>
+<p>  –大小64K</p>
+</li>
+<li><p>列族（Column Family）</p>
+<p>  –表中数据按“列族”分组，每一行由若干列族组成，每个列族下可包含多个列</p>
+<p>  –列族必须在建表时必须明确定义，如：create ‘student’, ‘basicinfo’, ‘courseinfo’</p>
+<p>  –每一行的列族都相同，但列族不一定要包含数据</p>
+<p>  –物理上，同一列族的数据存储在一起</p>
+<p>  –权限控制、存储以及调优都在列族层面进行</p>
+</li>
+<li><p>列与列限定符（Columen &amp; Column Qualifier）</p>
+<p>  –一个列族可包含多个列，且各列族可包含不同的列</p>
+<p>  –列由列族和列限定符唯一指定，列名由列族名和列限定符组成，以“:”分隔</p>
+<p>  –新列可按需动态加入列族</p>
+</li>
+<li><p>单元格（Cell）</p>
+<p>  –单元格由RowKey、列族、列限定符唯一定位</p>
+<p>  –单元格中存放若干<value, version=""></value,></p>
+<p>  –单元格的值是有版本的，版本号为时间戳</p>
+<p>  –单元格的值由{rowkey, column(=<column family="">+<column qualifier="">), version}来唯一定位</column></column></p>
+<p>  –单元格的数据类型为字节数组byte[]</p>
+</li>
+<li><p>时间戳（Timestamp）</p>
+<p>  –单元格的值利用时间戳来标识版本，时间戳具有唯一性</p>
+<p>  –单元格内不同版本的值按时间倒序排列，最新的数据排在最前面</p>
+<p>  –时间戳可以在数据写入时由系统自动赋值（精确到毫秒的当前系统时间），也可以由客户显式赋值，为了避免版本冲突，必须生成具有唯一性的时间戳</p>
+<p>  –类型是 64位整型</p>
+</li>
+</ul>
+<h6 id="4-3-特点"><a href="#4-3-特点" class="headerlink" title="4.3 特点"></a>4.3 特点</h6><ul>
+<li><p>数据规模大</p>
+<p>  –单表可容纳数十亿行，上百万列</p>
+</li>
+<li><p>无模式</p>
+<p>  –每行可以有任意多的列，列可以动态增加，不同行可以有不同的列，列的类型没有限制</p>
+</li>
+<li><p>面向列族</p>
+<p>  –面向列族的存储和权限控制，支持列族独立查询</p>
+</li>
+<li><p>稀疏</p>
+<p>  –值为空的列不占存储空间，表可以非常稀疏</p>
+</li>
+<li><p>数据多版本</p>
+<p>  –单元格的值可以有多个版本，利用时间戳来标识版本</p>
+</li>
+<li><p>数据无类型</p>
+<p>  –所有数据以字节数组形式存储</p>
+</li>
+<li><p>线性模块化扩展方式</p>
+</li>
+<li><p>严格一致性读写</p>
+</li>
+<li><p>自动可配置表切割</p>
+</li>
+<li><p>区域服务器之间自动容灾</p>
+</li>
+<li><p>块缓存和布隆过滤器用于实时查询 </p>
+</li>
+<li><p>通过服务器端过滤器实现查询预测</p>
+</li>
+<li><p>可以通过hbase shell 和 java API访问</p>
+</li>
+<li><p>支持运行MapReduce任务基础类</p>
+</li>
+<li><p>可视化</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-系统架构"><a href="#5-系统架构" class="headerlink" title="5.系统架构"></a>5.系统架构</h3><ul>
+<li><p>HMaster（Master）</p>
+<p>  –管理元数据</p>
+<p>  –管理表的创建、删除和修改</p>
+<p>  –为HRegionServer分配Region</p>
+<p>  –负责HRegionServer的负载均衡</p>
+<p>  –不处理Client的数据读写请求</p>
+</li>
+<li><p>HRegionServer（Slave）</p>
+<p>  –系统运行过程中动态添加、删除HRegionServer</p>
+<p>  –处理Client的数据读写请求</p>
+<p>  –管理Region Split（分裂）</p>
+<p>  –管理StoreFile Compaction（合并）</p>
+</li>
+<li><p>Zookeeper</p>
+<p>  –实现HMaster高可用</p>
+<p>  –监控HRegionServer的上下线信息，并通知HMaster</p>
+<p>  –存储元数据的寻址入口</p>
+<p>  –存储所有Region的寻址入口</p>
+</li>
+<li><p>Client</p>
+<p>  –通过接口访问hbase</p>
+<p>  –为了加快数据访问速度，将元数据、Region位置等信息缓存在Client Cache中</p>
+</li>
+</ul>
+<h3 id="6-数据存储"><a href="#6-数据存储" class="headerlink" title="6.数据存储"></a>6.数据存储</h3><ul>
+<li><p>Region<br>  –分布式存储和负载的最小单元</p>
+<p>  –系统将表水平划分（按行）为多个Region，每个Region保存表的一段连续数据</p>
+<p>  –默认每张表开始只有一个Region，随着数据不断写入，Region不断增大，当Region大小超过阀值时，当前Region会分裂成两个子Region</p>
+<p>  –随着Region的不断增多，HMaster会将部分Region迁移到其他HRegionServer中，实现负载均衡</p>
+<p>  –表通常被保存在多个HRegionServer的多个Region中</p>
+</li>
+<li><p>Store</p>
+<p>  –一个Region由多个Store组成，每个Store存储一个列族</p>
+<p>  –Store由内存中的MemStore和磁盘中的若干StoreFile组成</p>
+<p>  –Region是分布式存储的最小单元，而Store是存储落盘的最小单元</p>
+</li>
+<li><p>MemStore与StoreFile</p>
+<p>  –MemStore是Store的内存缓冲区，数据读写都先访问MemStore</p>
+<p>  –StoreFile是MemStore的磁盘溢写文件，在HDFS中被称为HFile</p>
+<p>  –写数据时，先写MemStore，当数据量超过阈值时，HRegionServer会将MemStore中的数据溢写磁盘，每次溢写都生成一个独立的StoreFile（HFile）</p>
+<p>  –当Store中的StoreFile数量超过阈值时，HRegionServer会将若干小StoreFile合并为一个大StoreFile</p>
+<p>  –当Region中最大Store的大小超过阈值时，HRegionServer会将其等分为两个子Region</p>
+<p>  –Client读取数据时，先找MemStore，再找StoreFile</p>
+</li>
+</ul>
+<p><img src="/img/hbase3.png" alt="image"></p>
+<p><img src="/img/hbase4.png" alt="image"></p>
+<p><img src="/img/hbase5.png" alt="image"></p>
+<h3 id="7-读写过程"><a href="#7-读写过程" class="headerlink" title="7.读写过程"></a>7.读写过程</h3><blockquote>
+<p>写过程</p>
+</blockquote>
+<p>（1）Client访问ZK，获取meta表所在Region的位置信息，并将该信息写入Client Cache</p>
+<p>（2）Client读取meta表，根据Namespace、表名和RowKey，获取将要写入Region的位置信息，并将meta表写入Client Cache</p>
+<p>（3）Client向HRegionServer发出写请求，HRegionServer先将操作和数据写入HLog（预写日志，<br>Write Ahead Log，WAL），再将数据写入MemStore，并保持有序</p>
+<p>（4）当MemStore的数据量超过阈值时，将数据溢写磁盘，生成一个StoreFile文件</p>
+<p>（5）当StoreFile的数量超过阈值时，将若干小StoreFile合并（Compact）为一个大StoreFile</p>
+<p>（6）当Region中最大Store的大小超过阈值时，Region分裂（Split），等分成两个子Region</p>
+<blockquote>
+<p> 读过程</p>
+</blockquote>
+<p>（1）获取将要读取Region的位置信息（见写过程的第1、2步）</p>
+<p>（2）Client向HRegionServer发出读请求</p>
+<p>（3）HRegionServer先从MemStore读取数据，如未找到，再从StoreFile中</p>
+<blockquote>
+<p>StoreFile Compaction</p>
+</blockquote>
+<ul>
+<li>含义：将Store中的全部或部分StoreFile合并为一个StoreFile的过程</li>
+<li>目的：减少StoreFile数量，提升数据读取效率</li>
+<li><p>触发<br>  –时机：</p>
+<p>  ①Memstore溢写；</p>
+<p>  ②后台线程周期性检查；</p>
+<p>  ③手动，且触发后不能停止</p>
+<p>  –条件：</p>
+<p>  当Store中的StoreFile数量超过阈值时，触发StoreFile Compaction</p>
+</li>
+<li><p>Minor Compaction</p>
+<p>  1.选取Store下的部分StoreFile（小的或相邻的），将它们合并为一个StoreFile</p>
+<p>  2.不删除过期版本、delete marker数据</p>
+<p>  3.速度较快，IO和带宽开销相对较低</p>
+</li>
+</ul>
+<ul>
+<li><p>Major Compaction</p>
+<p>  1.将Store下的所有StoreFile合并为一个StoreFile</p>
+<p>  2.删除过期版本、delete marker数据</p>
+<p>  3.通常手动触发，选择集群比较空闲的时间操作</p>
+<p>  4.速度很慢，IO和带宽开销非常高</p>
+</li>
+</ul>
+<p><img src="/img/hbase6.png" alt="image"></p>
+<blockquote>
+<p>Region Split</p>
+</blockquote>
+<ul>
+<li>含义：根据一定的触发条件和分裂策略，将Region划分为两个子Region的过程</li>
+<li>目的：实现数据访问的负载均衡</li>
+<li><p>方法：利用MiddleKey将当前Region划分为两个等分的子Region<br>-触发</p>
+<p>  –时机：</p>
+<p>  ①Memstore溢写；</p>
+<p>  ②StoreFile Compaction；</p>
+<p>  ③手动</p>
+<p>  –条件：</p>
+<p>  当Region中最大Store的大小超过阈值时，触发Region Split</p>
+</li>
+<li><p>Split会产生大量的I/O操作</p>
+</li>
+<li>Split开始前和Split完成后，HRegionServer都会通知HMaster</li>
+<li>Split完成后，HRegionServer会更新meta表</li>
+</ul>
+<p><img src="/img/hbase7.png" alt="image"></p>
+<blockquote>
+<p>HLog</p>
+</blockquote>
+<ul>
+<li>含义：以WAL（Write Ahead Log，预写日志）方式写数据时产生的日志文件</li>
+<li>目的：HRegionServer意外宕机时的数据恢复</li>
+<li>先写HLog，再写MemStore，最后写StoreFile</li>
+<li>每个HRegionServer维护一个HLog</li>
+<li>定期删除HLog过期数据</li>
+<li><p>数据恢复过程</p>
+<p>  1.HMaster通过ZooKeeper自动感知HRegionServer宕机</p>
+<p>  2.HMaster处理HLog，针对不同的Region拆分HLog</p>
+<p>  3.HMaster重新分配失效的Region</p>
+<p>  4.通过HLog将尚未持久化的数据重新写入MemStore，然后溢写到StoreFile</p>
+</li>
+</ul>
+<h4 id="本期Over"><a href="#本期Over" class="headerlink" title="本期Over!"></a>本期Over!</h4><hr>
+<blockquote>
+<p>下期介绍hbase安装与使用</p>
+</blockquote>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃码粮<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">诗和远方</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">hbase</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/07/01/分布式NewSQL数据库Hbase入门介绍/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/07/06/Hbase实现分页查询/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hbase实现分页查询
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2018/06/02/帆软报表左右键切换tab页/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">帆软报表左右键切换tab页</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/07/01/分布式NewSQL数据库Hbase入门介绍/",
+  owner: 'ouysl',
+  repo: 'ouysl.github.io',
+  oauth: {
+    client_id: '9c1278c7f3f557561947',
+    client_secret: '7fed80568541201b3bc113a8c45b7dee40f7a679',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -237,8 +659,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

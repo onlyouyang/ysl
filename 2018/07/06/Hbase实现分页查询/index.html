@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2015/3 | Young&#39;s Blog</title>
+  <title>Hbase实现分页查询 | Young&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术才是硬道理">
-<meta name="keywords" content="java,IT,程序猿,开发者,mysql,oracle,html5,编程,大数据,人工智能">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Young&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2015/03/index.html">
+  <meta name="description" content="写在前面  1.hbase查询批量数据是通过scan扫描表的，一般都是按条件查询，可以通过过滤器Filter锁定满足条件的数据。 2.分页查询需要知道数据总数，而对于hbase这比较麻烦，不能像传统数据库一样直接count(*),暂时通过循环遍历去获得总数。">
+<meta name="keywords" content="hbase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hbase实现分页查询">
+<meta property="og:url" content="http://yoursite.com/2018/07/06/Hbase实现分页查询/index.html">
 <meta property="og:site_name" content="Young&#39;s Blog">
-<meta property="og:description" content="技术才是硬道理">
+<meta property="og:description" content="写在前面  1.hbase查询批量数据是通过scan扫描表的，一般都是按条件查询，可以通过过滤器Filter锁定满足条件的数据。 2.分页查询需要知道数据总数，而对于hbase这比较麻烦，不能像传统数据库一样直接count(*),暂时通过循环遍历去获得总数。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-17T08:29:45.376Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Young&#39;s Blog">
-<meta name="twitter:description" content="技术才是硬道理">
+<meta name="twitter:title" content="Hbase实现分页查询">
+<meta name="twitter:description" content="写在前面  1.hbase查询批量数据是通过scan扫描表的，一般都是按条件查询，可以通过过滤器Filter锁定满足条件的数据。 2.分页查询需要知道数据总数，而对于hbase这比较麻烦，不能像传统数据库一样直接count(*),暂时通过循环遍历去获得总数。">
   
     <link rel="alternative" href="/atom.xml" title="Young&#39;s Blog" type="application/atom+xml">
   
@@ -160,60 +161,235 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Hbase实现分页查询" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/03/05/时间/" class="archive-article-date">
-  	<time datetime="2015-03-05T02:11:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-03-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/05/时间/">时间</a>
+    <h1 class="article-title" itemprop="name">
+      Hbase实现分页查询
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/06/Hbase实现分页查询/" class="archive-article-date">
+  	<time datetime="2018-07-06T01:32:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-06</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <script src="\assets\js\APlayer.min.js"> </script><blockquote>
+<p>写在前面</p>
+</blockquote>
+<p>1.hbase查询批量数据是通过scan扫描表的，一般都是按条件查询，可以通过过滤器Filter锁定满足条件的数据。</p>
+<p>2.分页查询需要知道数据总数，而对于hbase这比较麻烦，不能像传统数据库一样直接count(*),暂时通过循环遍历去获得总数。<br><a id="more"></a><br>3.分页查询时前端传过来的参数：</p>
+<ul>
+<li><p>当前需要查询第几页的数据: pageIndex</p>
+</li>
+<li><p>每次查询的数据个数：pageSize (一般固定)</p>
+</li>
+</ul>
+<p>4.分页查询需要获得数据：</p>
+<ul>
+<li><p>数据总数</p>
+</li>
+<li><p>当前页面对应的数据</p>
+</li>
+</ul>
+<blockquote>
+<p>具体思路</p>
+</blockquote>
+<p>hbase通过scan设置startRow,以及PageFilter设置需要查询的个数，即可完成分页查询。</p>
+<blockquote>
+<p>步骤：</p>
+</blockquote>
+<p>1.获取总数</p>
+<p>下面案例使用了前缀过滤器PrefixFilter，其实能定位到startRow,和stopRow更好，再结合FirstKeyOnlyFilter，过滤第一列的值，提高查询效率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">public static int countBy(String rowKey,String tableName)&#123;</div><div class="line">		Table table=null;</div><div class="line">		try &#123;</div><div class="line">			table = HbaseUtil.getConnection().getTable(TableName.valueOf(tableName));//获得表</div><div class="line">		&#125; catch (IOException e1) &#123;</div><div class="line">			e1.printStackTrace();</div><div class="line">		&#125;</div><div class="line">    	int cnt=0;</div><div class="line">		PrefixFilter prefix = new PrefixFilter(Bytes.toBytes(rowKey));//前缀过滤器</div><div class="line">    	Scan scan = new Scan();  //扫描器</div><div class="line">//    	scan.setStartRow(Bytes.toBytes(startRow));</div><div class="line">//    	scan.setStopRow(Bytes.toBytes(stopRow));</div><div class="line">		scan.setCaching(500);</div><div class="line">		scan.setCacheBlocks(false);</div><div class="line">		FirstKeyOnlyFilter first = new FirstKeyOnlyFilter();//过滤第一列的值,提高查询效率</div><div class="line">		FilterList filter = new FilterList(FilterList.Operator.MUST_PASS_ALL);//组合过滤器</div><div class="line">		filter.addFilter(prefix);</div><div class="line">		filter.addFilter(first);</div><div class="line">		scan.setFilter(filter); </div><div class="line">		ResultScanner rs = null;</div><div class="line">		try &#123;</div><div class="line">			rs = table.getScanner(scan);</div><div class="line">			for (org.apache.hadoop.hbase.client.Result r : rs) &#123;</div><div class="line">				cnt++ ;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">		&#125; catch (IOException e) &#123;</div><div class="line">			</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return cnt;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>2.每次查询待重新定位starRow，就是把前端传送过来的    pageIndex转换成startRow。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">private static String GetCurrentPageStartRow(String rowKey,String tableName,int pageIndex, int pageSize) throws Exception &#123;</div><div class="line">			</div><div class="line">		// 如果 传送过来的额  pageIndex 不合法。 默认返回 第一页数据</div><div class="line">		if (pageIndex &lt;=1) &#123;</div><div class="line">			return null;</div><div class="line">		&#125;else &#123;</div><div class="line">			//从第二页开始的所有数据。</div><div class="line">			String startRow = null;</div><div class="line">		</div><div class="line">			for (int i = 1; i &lt; pageIndex; i++) &#123;</div><div class="line">				//第几次循环，就是获取第几页的数据</div><div class="line">				ResultScanner pageData = getPageData(rowKey,tableName,startRow, pageSize);</div><div class="line">				//获取当前这一页的最后rowkey</div><div class="line">				Iterator&lt;Result&gt; iterator = pageData.iterator();</div><div class="line">				Result result = null;</div><div class="line">				while (iterator.hasNext()) &#123;</div><div class="line"> </div><div class="line">					result = iterator.next();</div><div class="line">				&#125;</div><div class="line">				//让最后一个rowkey往后挪动一点位置，但是又不会是下一页的startRow</div><div class="line">				String endRowStr = new String(result.getRow());</div><div class="line">				byte[] add = Bytes.add(endRowStr.getBytes(), new byte[]&#123; 0x00&#125;);</div><div class="line">				</div><div class="line">				String nextPageStartRowstr = Bytes.toString(add);</div><div class="line">				</div><div class="line">				startRow = nextPageStartRowstr;</div><div class="line">			&#125;</div><div class="line">			return startRow;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">private static ResultScanner getPageData(String rowKey,String tableName,String startRow, int pageSize) throws Exception &#123;</div><div class="line">		</div><div class="line">		</div><div class="line">		Table table =null;</div><div class="line">		//获得表</div><div class="line">		try &#123;</div><div class="line">			table = getConnection().getTable(TableName.valueOf(tableName));</div><div class="line">		&#125; catch (IOException e1) &#123;</div><div class="line">			logger.warn(&quot;表不存在!&quot;);</div><div class="line">			e1.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		Scan scan = new Scan();</div><div class="line">	    scan.setCaching(20);</div><div class="line">        scan.setCacheBlocks(false);</div><div class="line">		</div><div class="line">		//设置起始行键搞定</div><div class="line">		//如果是第一页数据，所以scan.setStartRow这句代码根本就没有任何意义，不用设置即可</div><div class="line">		if (!StringUtils.isBlank(startRow)) &#123;</div><div class="line">			</div><div class="line">			//如果用户不传入startRow，或者传入一个非法的startRow，还是按照规则返回第一页</div><div class="line">			scan.setStartRow(startRow.getBytes());</div><div class="line">		&#125;</div><div class="line">		PrefixFilter prefix = new PrefixFilter(Bytes.toBytes(rowKey));//前缀过滤器</div><div class="line">		FilterList filter1 = new FilterList(FilterList.Operator.MUST_PASS_ALL);</div><div class="line"></div><div class="line">		//设置总数据条件</div><div class="line">		Filter pageFilter = new PageFilter(pageSize);</div><div class="line">		filter1.addFilter(prefix);</div><div class="line">		filter1.addFilter(pageFilter);</div><div class="line">		scan.setFilter(filter1);</div><div class="line">		</div><div class="line">		ResultScanner scanner = table.getScanner(scan);</div><div class="line">		</div><div class="line">		</div><div class="line">		return scanner;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>3.需要获得每次查询的个数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Table table=getTable(tableName);</div><div class="line">int counts =countBy(rowKey,table);</div><div class="line">int size=0;</div><div class="line">if(counts&gt;=pageIndex*pageSize)&#123;</div><div class="line">	size=pageSize;</div><div class="line">&#125;</div><div class="line">if(counts&lt;pageIndex*pageSize)&#123;</div><div class="line">	size=counts%pageSize;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>4.通过scan设置startRow和pageFilter(size)查询结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">List&lt;Map&lt;String,String&gt;&gt; list=new ArrayList&lt;Map&lt;String,String&gt;&gt;();</div><div class="line">//startRow和size由上面方法得出</div><div class="line">ResultScanner scanner=getPageData(rowKey,tableName,startRow,size);</div><div class="line">list=scanTable(scanner, table);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">private static ResultScanner getPageData(String rowKey,String tableName,String startRow, int size) throws Exception &#123;</div><div class="line">	</div><div class="line">	</div><div class="line">	Table table =null;</div><div class="line">	//获得表</div><div class="line">	try &#123;</div><div class="line">		table = getConnection().getTable(TableName.valueOf(tableName));</div><div class="line">	&#125; catch (IOException e1) &#123;</div><div class="line">		logger.warn(&quot;表不存在!&quot;);</div><div class="line">		e1.printStackTrace();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	Scan scan = new Scan();</div><div class="line">    scan.setCaching(20);</div><div class="line">       scan.setCacheBlocks(false);</div><div class="line">	</div><div class="line">	//设置起始行键搞定</div><div class="line">	//如果是第一页数据，所以scan.setStartRow这句代码根本就没有任何意义，不用设置即可</div><div class="line">	if (!StringUtils.isBlank(startRow)) &#123;</div><div class="line">		</div><div class="line">		//如果用户不传入startRow，或者传入一个非法的startRow，还是按照规则返回第一页</div><div class="line">		scan.setStartRow(startRow.getBytes());</div><div class="line">	&#125;</div><div class="line">	PrefixFilter prefix = new PrefixFilter(Bytes.toBytes(rowKey));//前缀过滤器</div><div class="line">	FilterList filter1 = new FilterList(FilterList.Operator.MUST_PASS_ALL);</div><div class="line"></div><div class="line">	//设置总数据条件</div><div class="line">	Filter pageFilter = new PageFilter(size);</div><div class="line">	filter1.addFilter(prefix);</div><div class="line">	filter1.addFilter(pageFilter);</div><div class="line">	scan.setFilter(filter1);</div><div class="line">	</div><div class="line">	ResultScanner scanner = table.getScanner(scan);</div><div class="line">	</div><div class="line">	</div><div class="line">	return scanner;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Map&lt;String, String&gt;&gt; scanTable(ResultScanner scan, Table table) &#123;</div><div class="line">		// 结果集</div><div class="line">		if (scan == null || table == null) &#123;</div><div class="line">			return null;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		List&lt;Map&lt;String, String&gt;&gt; result = new ArrayList&lt;&gt;();</div><div class="line">			Iterator&lt;Result&gt; it = scan.iterator();</div><div class="line">			while (it.hasNext()) &#123;</div><div class="line">				Map&lt;String, String&gt; m = null;// 用于存储每行的结果</div><div class="line">				Result r = it.next();</div><div class="line">			//	String rowkey = Bytes.toString(r.getRow());</div><div class="line">				// 得到一行的所有map,key=f1,value=Map&lt;Col,Map&lt;Timestamp,value&gt;&gt;</div><div class="line">				NavigableMap&lt;byte[], NavigableMap&lt;byte[], NavigableMap&lt;Long, byte[]&gt;&gt;&gt; map = r.getMap();</div><div class="line">				//</div><div class="line">				for (Map.Entry&lt;byte[], NavigableMap&lt;byte[], NavigableMap&lt;Long, byte[]&gt;&gt;&gt; entry : map.entrySet()) &#123;</div><div class="line">					m = new HashMap&lt;&gt;();</div><div class="line">					;// 用于存储每个字段的结果</div><div class="line">						// 得到列族</div><div class="line">					//String f = Bytes.toString(entry.getKey());</div><div class="line">					Map&lt;byte[], NavigableMap&lt;Long, byte[]&gt;&gt; colDataMap = entry.getValue();</div><div class="line">					for (Map.Entry&lt;byte[], NavigableMap&lt;Long, byte[]&gt;&gt; ets : colDataMap.entrySet()) &#123;</div><div class="line"></div><div class="line">						String c = Bytes.toString(ets.getKey());</div><div class="line">						Map&lt;Long, byte[]&gt; tsValueMap = ets.getValue();</div><div class="line">						for (Map.Entry&lt;Long, byte[]&gt; e : tsValueMap.entrySet()) &#123;</div><div class="line">							//Long ts = e.getKey();</div><div class="line">							String value = Bytes.toString(e.getValue());</div><div class="line">							m.put(c, value);</div><div class="line">						&#125;</div><div class="line"></div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				result.add(m);</div><div class="line">			&#125;</div><div class="line">			logger.info(table.getName() + &quot;查询成功&quot;);</div><div class="line">		// System.out.println(result);</div><div class="line">		return result;</div><div class="line"></div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃码粮<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wxpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">诗和远方</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">hbase</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/07/06/Hbase实现分页查询/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/07/01/分布式NewSQL数据库Hbase入门介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式NewSQL数据库Hbase入门介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/07/06/Hbase实现分页查询/",
+  owner: 'ouysl',
+  repo: 'ouysl.github.io',
+  oauth: {
+    client_id: '9c1278c7f3f557561947',
+    client_secret: '7fed80568541201b3bc113a8c45b7dee40f7a679',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -237,8 +413,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
